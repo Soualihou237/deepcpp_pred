@@ -6,36 +6,28 @@ import pandas as pd
 import streamlit as st
 import time
 import numpy as np
-
 import streamlit.components.v1 as components
 from PIL import Image
-
 import streamlit.components.v1 as components
-
-
 from rdkit.Chem import AllChem
 from rdkit import Chem
 from rdkit.Chem import Descriptors
 from rdkit.ML.Descriptors import MoleculeDescriptors
-from rdkit.Chem.Draw import IPythonConsole
+
 from rdkit.Chem import MACCSkeys
 from rdkit.Avalon import pyAvalonTools
-from rdkit.Chem import PandasTools, Draw
 from rdkit.Chem.SaltRemover import SaltRemover
 from rdkit.Chem.AtomPairs import Pairs, Torsions
 from rdkit.Chem import rdMolDescriptors
-
 from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import backend as K
-
 import pickle
 import keras
 import tensorflow as tf
 import base64
 from pandas.io.formats.style import Styler
-
 from sklearn.model_selection import train_test_split
 import torch
 from torch.utils.data import TensorDataset, random_split
