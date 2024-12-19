@@ -4,7 +4,6 @@ RDKit Installation: https://www.rdkit.org/docs/Install.html
 """
 import pandas as pd
 import streamlit as st
-from st_aggrid import AgGrid
 import time
 import numpy as np
 
