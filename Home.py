@@ -151,6 +151,12 @@ button[data-baseweb="tab"] {
 .css-16idsys p{
     font-size:17px;
 }
+.stButton{
+    text-align:left;
+}
+.stDownloadButton{
+    text-align:left;
+}
 </style>
 """
 
