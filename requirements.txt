@@ -81,4 +81,5 @@ Werkzeug==3.1.3
 wheel==0.44.0
 wrapt==1.17.0
 yarl==1.18.3
-rdkit==2024.3.2
+rdkit==2023.9.1
+biopython==1.84
