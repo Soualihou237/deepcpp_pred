@@ -17,7 +17,6 @@ from rdkit.Chem import AllChem
 from rdkit import Chem
 from rdkit.Chem import Descriptors
 from rdkit.ML.Descriptors import MoleculeDescriptors
-from rdkit.Chem import Draw
 from rdkit.Chem.Draw import IPythonConsole
 from rdkit.Chem import MACCSkeys
 from rdkit.Avalon import pyAvalonTools
