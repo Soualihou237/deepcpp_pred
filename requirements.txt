@@ -208,7 +208,7 @@ toml
 tomli
 toolz
 torch
-torch-scatter
+torch-scatter --no-build-isolation
 torch_geometric
 torchaudio
 torchvision
