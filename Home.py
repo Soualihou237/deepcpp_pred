@@ -278,7 +278,7 @@ def color_prediction(val):
 
 ##Building model
 def build_model_single(df_single):
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
     data_test_graph = peptide_sequence_to_graph(df_single)
     X_data_test_one_hot_encoded = sequenceEncoding(dBLOSUM, df_single) #seq_to_categorical_new(test_d)
 
@@ -288,7 +288,7 @@ def build_model_single(df_single):
     test_graph_loader = DataLoader(data_test_graph, batch_size=64)
     test_seq_loader = DataLoader(test_seq_dataset, batch_size=64)
 
-    loaded_model = pickle.load(open('DeepCPPpred.pkl', 'rb')) 
+    loaded_model = pickle.load(open('DeepCPPpredNew.pkl', 'rb')) 
 
     # Evaluate the model
     loaded_model.eval()
@@ -312,7 +312,7 @@ def build_model_single(df_single):
     return df
 
 def build_model_batch(fasta_bach_content):
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
 
     fasta_content_in = []
     all_preds = []
@@ -333,7 +333,7 @@ def build_model_batch(fasta_bach_content):
     test_graph_loader = DataLoader(data_test_graph, batch_size=64)
     test_seq_loader = DataLoader(test_seq_dataset, batch_size=64)
 
-    loaded_model = pickle.load(open('DeepCPPpred.pkl', 'rb')) 
+    loaded_model = pickle.load(open('DeepCPPpredNew.pkl', 'rb')) 
 
     # Evaluate the model
     loaded_model.eval()
