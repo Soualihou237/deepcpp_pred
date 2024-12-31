@@ -59,9 +59,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-image = Image.open('site_name.png')
+# image = Image.open('site_name.png')
 
-st.image(image, caption='')
+# st.image(image, caption='')
 
 st.markdown(
     """
