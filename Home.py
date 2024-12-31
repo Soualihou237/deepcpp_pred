@@ -59,9 +59,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# image = Image.open('site_name.png')
+image = Image.open('site_name.png')
 
-# st.image(image, caption='')
+st.image(image, caption='')
 
 st.markdown(
     """
@@ -103,7 +103,7 @@ weel1aimg="""
         }
     </style>
     <div class='my_site_name'>
-       <img src='/media/693c088770063f2f92382f0d6811970885bcbf79bfa609d4d8792bea.png'>
+       <img src='/~/+/media/693c088770063f2f92382f0d6811970885bcbf79bfa609d4d8792bea.png'>
     </div>
     """
 
