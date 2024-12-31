@@ -130,7 +130,7 @@ weel1a2="""
     </style>
     <div class='mywell'>
         <p>
-            <b>DeepCPPpred</b> is a web service for the DeepCPP model, build to predict the permation ability of pepties determining if a peptide is a 
+            A web service of the DeepCPP model was build to predict the permation ability of pepties determining if a peptide is a 
             cell penetranating peptide (CPP) or not (non-CPP). 
         </p>
         <h6 style='padding-bottom:0rem;'>Input: </h6>
@@ -143,9 +143,9 @@ weel1a2="""
         </p>
         <p>
             <h6 style='padding-bottom:0rem;'>Output: </h6>
-            The DeepCPPpred tool predict whether the query peptide is a CPP or non-CPP, and provides the confidence score of prediction, a value
+            The web service tool predict whether the query peptide is a CPP or non-CPP, and provides the confidence score of prediction, a value
             between 0 and 1, which denotes the level of likeliness of the peptide to be cell penetrating peptide. where a score close to 1 denotes a strong
-            confidence from the DeepCPPpred that the peptide is a CPP, and a score close to 0 a strong confidence that the peptide is a non-CPP.
+            confidence from the tool that the peptide is a CPP, and a score close to 0 a strong confidence that the peptide is a non-CPP.
         </p>
         Click <a href="Help" target="_blank">here</a> For more information.
     </div>
