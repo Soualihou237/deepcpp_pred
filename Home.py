@@ -37,7 +37,7 @@ from torch_geometric.loader import DataLoader
 from Bio import SeqIO 
 from io import StringIO
 
-from dataprocessing import sequenceEncoding, peptide_sequence_to_graph
+from dataprocessing import sequenceEncoding, peptide_sequence_to_graph, dBLOSUM
 from model import DeepCPP
 
 st.set_page_config(
