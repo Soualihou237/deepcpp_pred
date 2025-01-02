@@ -103,7 +103,7 @@ weel1aimg="""
         }
     </style>
     <div class='my_site_name'>
-       <img src='https://deepcpp.streamlit.app:443/~/+/media/693c088770063f2f92382f0d6811970885bcbf79bfa609d4d8792bea.png'>
+       <img src='https://deepcpp.streamlit.app:443/~/+/media/dac66dfcb8b2835a251b3ed21fdb583fc9ad67af00f508b9007f5a9b.png'>
     </div>
     """
 st.image("site_name.png", caption="")
