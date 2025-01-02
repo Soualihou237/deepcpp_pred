@@ -106,7 +106,7 @@ weel1aimg="""
        <img src='https://deepcpp.streamlit.app:443/~/+/media/dac66dfcb8b2835a251b3ed21fdb583fc9ad67af00f508b9007f5a9b.png'>
     </div>
     """
-st.image("site_name.png", caption="")
+# st.image("site_name.png", caption="")
 
 st.write(weel1aimg, unsafe_allow_html=True)
 weel1a2="""
