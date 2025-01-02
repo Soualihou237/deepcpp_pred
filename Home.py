@@ -225,68 +225,26 @@ def valid_peptideseq(cpp_sequence):
     
 #     return validation_results
 
-def valid_fasta(fasta_content):
-    """
-    Validate sequences in a FASTA file.
+def valid_fasta(sequence):
 
-    Parameters:
-        fasta_content: A string representing the FASTA content.
-
-    Returns:
-        dict: A dictionary with sequence IDs as keys and True/False as values,
-              indicating whether each sequence is valid.
-    """
     valid_amino_acids = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 
                          'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y'}
 
-    validation_results = {}
+    validation_result = 4
+
     try:
-        # Use StringIO to handle the content as a file-like object
-        fasta_io = StringIO(fasta_content)
-        for record in SeqIO.parse(fasta_io, "fasta"):
-            sequence = str(record.seq).upper()
-            if 5 <= len(sequence) <= 30 and all(residue in valid_amino_acids for residue in sequence):
-                validation_results[record.id] = 1
-            if 5 < len(sequence) > 30 and all(residue in valid_amino_acids for residue in sequence) == False:
-                validation_results[record.id] = 2    
-            elif 5 > len(sequence) or len(sequence)> 30:
-                validation_results[record.id] = 3
-            elif all(residue in valid_amino_acids for residue in sequence) == False:
-                validation_results[record.id] = 4
-            # else:
-            #     validation_results[record.id] = 4
+        if 5 <= len(sequence) <= 30 and all(residue in valid_amino_acids for residue in sequence):
+            validation_result = 0
+        if (5 > len(sequence) or len(sequence)> 30) and all(residue in valid_amino_acids for residue in sequence) == False:
+            validation_result = 1    
+        elif 5 > len(sequence) or len(sequence)> 30:
+            validation_result = 2
+        elif all(residue in valid_amino_acids for residue in sequence) == False:
+            validation_result = 3
     except Exception as e:
         raise ValueError(f"Error reading FASTA file: {e}")
 
-    return validation_results
-
-
-dBLOSUM = { # CPP_sequence_length x 20
-    'A':[ 4,  0, -2, -1, -2,  0, -2, -1, -1, -1, -1, -2, -1, -1, -1,  1,  0,  0, -3, -2],
-    'C':[ 0,  9, -3, -4, -2, -3, -3, -1, -3, -1, -1, -3, -3, -3, -3, -1, -1, -1, -2, -2],
-    'D':[-2, -3,  6,  2, -3, -1, -1, -3, -1, -4, -3,  1, -1,  0, -2,  0, -1, -3, -4, -3],
-    'E':[-1, -4,  2,  5, -3, -2,  0, -3,  1, -3, -2,  0, -1,  2,  0,  0, -1, -2, -3, -2],
-    'F':[-2, -2, -3, -3,  6, -3, -1,  0, -3,  0,  0, -3, -4, -3, -3, -2, -2, -1,  1,  3],
-    'G':[ 0, -3, -1, -2, -3,  6, -2, -4, -2, -4, -3,  0, -2, -2, -2,  0, -2, -3, -2, -3],
-    'H':[-2, -3, -1,  0, -1, -2,  8, -3, -1, -3, -2,  1, -2,  0,  0, -1, -2, -3, -2,  2],
-    'I':[-1, -1, -3, -3,  0, -4, -3,  4, -3,  2,  1, -3, -3, -3, -3, -2, -1,  3, -3, -1],
-    'K':[-1, -3, -1,  1, -3, -2, -1, -3,  5, -2, -1,  0, -1,  1,  2,  0, -1, -2, -3, -2],
-    'L':[-1, -1, -4, -3,  0, -4, -3,  2, -2,  4,  2, -3, -3, -2, -2, -2, -1,  1, -2, -1],
-    'M':[-1, -1, -3, -2,  0, -3, -2,  1, -1,  2,  5, -2, -2,  0, -1, -1, -1,  1, -1, -1],
-    'N':[-2, -3,  1,  0, -3,  0,  1, -3,  0, -3, -2,  6, -2,  0,  0,  1,  0, -3, -4, -2],
-    'P':[-1, -3, -1, -1, -4, -2, -2, -3, -1, -3, -2, -2,  7, -1, -2, -1, -1, -2, -4, -3],
-    'Q':[-1, -3,  0,  2, -3, -2,  0, -3,  1, -2,  0,  0, -1,  5,  1,  0, -1, -2, -2, -1],
-    'R':[-1, -3, -2,  0, -3, -2,  0, -3,  2, -2, -1,  0, -2,  1,  5, -1, -1, -3, -3, -2],
-    'S':[ 1, -1,  0,  0, -2,  0, -1, -2,  0, -2, -1,  1, -1,  0, -1,  4,  1, -2, -3, -2],
-    'T':[ 0, -1, -1, -1, -2, -2, -2, -1, -1, -1, -1,  0, -1, -1, -1,  1,  5,  0, -2, -2],
-    'V':[ 0, -1, -3, -2, -1, -3, -3,  3, -2,  1,  1, -3, -2, -2, -3, -2,  0,  4, -3, -1],
-    'W':[-3, -2, -4, -3,  1, -2, -2, -3, -3, -2, -1, -4, -4, -2, -3, -3, -2, -3, 11,  2],
-    'Y':[-2, -2, -3, -2,  3, -3,  2, -1, -2, -1, -1, -2, -3, -1, -2, -2, -2, -1,  2,  7],
-    'p':[ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],#padding   
-}
-
-
-
+    return validation_result
 
 
 def color_prediction(val):
@@ -328,30 +286,22 @@ def build_model_single(df_single):
     df = pd.concat([molecule_name, prediction_probability,prediction_output], axis=1)
     return df
 
-def build_model_batch(fasta_bach_content):
+def predict_peptide(cpp_sequence):
     device = torch.device("cpu")
-
-    fasta_content_in = []
-    all_preds = []
-    probabilities = []
-    all_class = []
-    fasta_io = StringIO(fasta_content)
-    for record in SeqIO.parse(fasta_io, "fasta"):
-        fasta_content_in.append(str(record.seq).upper())
-
-    dataFrame = pd.DataFrame(fasta_content_in, columns=['sequence']) #pd.Series(fasta_content_in, name='sequence')
-
-    data_test_graph = peptide_sequence_to_graph(dataFrame)
-    X_data_test_one_hot_encoded = sequenceEncoding(dBLOSUM, dataFrame) #seq_to_categorical_new(test_d)
-
+    mol_class = ""
+    molecule_name = pd.Series(cpp_sequence, name='sequence')
+    mol_df = pd.concat([molecule_name], axis=1)
+    
+    data_test_graph = peptide_sequence_to_graph(mol_df)
+    X_data_test_one_hot_encoded = sequenceEncoding(dBLOSUM, mol_df) 
+    
     X_test_one_hot_tensor = torch.tensor(X_data_test_one_hot_encoded, dtype=torch.float32)
     test_seq_dataset = TensorDataset(X_test_one_hot_tensor)
-
+    
     test_graph_loader = DataLoader(data_test_graph, batch_size=64)
     test_seq_loader = DataLoader(test_seq_dataset, batch_size=64)
-
-    loaded_model = pickle.load(open('DeepCPPpredNew.pkl', 'rb')) 
-
+    loaded_model = pickle.load(open('DeepCPPpred.pkl', 'rb')) 
+    
     # Evaluate the model
     loaded_model.eval()
     with torch.no_grad():
@@ -360,27 +310,15 @@ def build_model_batch(fasta_bach_content):
             seq_data = seq_batch[0].to(device)
 
             outputs = loaded_model(graph_data, seq_data).view(-1, 1)
-            preds = torch.sigmoid(outputs).cpu().numpy() 
-            probabilities.extend(preds)
-            all_preds.extend(preds)
 
-    emoticon = []
-    for mol_pred in all_preds:
-        if mol_pred >= 0.5:
-            all_class.append("CPP")
-            emoticon.append("✔️")
-        else:
-            all_class.append("Non-CPP")
-            emoticon.append("✖️")
+            mol_pred = torch.sigmoid(outputs).cpu().numpy()
+            
+    if mol_pred >= 0.5:
+        mol_class = "CPP"
+    else:
+        mol_class = "Non-CPP"
+    return mol_pred, mol_class
 
-    prediction_output = pd.Series(emoticon, name='CPP')
-    prediction_classes = pd.Series(all_class, name='Class')
-    prediction_prob = pd.Series(probabilities,name='Probability')
-    molecule_seq = pd.Series(dataFrame.sequence, name='Peptide Sequence')
-    df = pd.concat([molecule_seq, prediction_prob, prediction_output], axis=1)
-    df_download = pd.concat([molecule_seq, prediction_prob, prediction_classes], axis=1)
-
-    return df,df_download
 tab1, tab2= st.tabs(["Single Prediction", "Batch Prediction"])
 
 
@@ -407,7 +345,6 @@ with tab1:
                     st.dataframe(data)
             
 
-
 with tab2:
     with open('test.fasta') as f:
         st.download_button('Download Example input file', f,'test.fasta')
@@ -420,107 +357,66 @@ with tab2:
 
         if uploaded_file:
             try:
-                fasta_content = uploaded_file.read().decode("utf-8")
+                with st.spinner('Prediction...'):
+                    fasta_content = uploaded_file.read().decode("utf-8")
 
-                # Validate the FASTA content
-                results = valid_fasta(fasta_content)
-                fasta_correct = True
+                    fasta_content_in = []
+                    all_preds = []
+                    all_probabilities = []
+                    all_class = []
+                    emoticon = []
+                    all_pepsequence = []
+                    # st.write(fasta_content)
 
-                for seq_id, is_valid in results.items():
-                    status = ""
-                    if is_valid !=1:
-                        fasta_correct = False
-                        break
-                if fasta_correct == False:
-                    st.subheader("Result of FASTA File examination")
-                    for seq_id, is_valid in results.items():
-                        # st.write(seq_id, is valid)
-                        status = ""
-                        if is_valid ==1:
-                            status = "✅ Valid"
-                        elif is_valid == 2 :
-                            fasta_correct= False
-                            "❌ Invalid: peptide sequence length is not respected and contains non-valid residues"
-                        elif is_valid == 3:
-                            fasta_correct= False
-                            "❌ Invalid: peptide sequence length is not respected"
-                        elif is_valid == 4:
-                            fasta_correct= False
-                            "❌ Invalid: peptide sequence contains non-valid residues"
-                        st.write(f"**{seq_id}**: {status}")
+                    fasta_io = StringIO(fasta_content)
+                    for record in SeqIO.parse(fasta_io, "fasta"):
+                        # Validate the FASTA content
 
-                else:
-                    with st.spinner('Prediction...'):
-                        table_title="<style> </style><div class='css-x9krnl ';style='display:block;'><p style='text-align:center;font-weight:bold;font-family:times;'>Cell Penetrating Peptide prediction output</p></div>"
+                        peptide_sequence = str(record.seq).upper()
+                        is_valid = valid_fasta(peptide_sequence)
 
-                        st.markdown(table_title, unsafe_allow_html=True)
+                        if is_valid == 0:
+                            prediction_score, mol_class = predict_peptide(peptide_sequence)
 
-                        prediction_output,prediction_output_download = build_model_batch(fasta_content)
-                        # st.write(df)
+                            if mol_class == 'CPP':
+                                emoticon.append("✔️")
+                            else:
+                                emoticon.append("✖️")
+                        else:
+                            prediction_score = [0]  # Wrap in a list to make it iterable
 
-                        styler = Styler(prediction_output)
+                            mol_class = "Invalid - "+ str(is_valid)
+                            emoticon.append("⚠️")
 
-                        # Apply CSS styling to center the cells in the 'Emoji' column
-                        styler.set_table_styles(
-                            [{'selector': 'Inhibitor', 'props': [('text-align', 'center')]}]
-                        )
+                        all_pepsequence.append(peptide_sequence)
+                        all_class.append(mol_class)
+                        all_probabilities.extend(prediction_score)
+                    prediction_output = pd.Series(emoticon, name='CPP')
+                    prediction_classes = pd.Series(all_class, name='Class')
+                    prediction_prob = pd.Series(all_probabilities,name='Probability')
+                    molecule_seq = pd.Series(all_pepsequence, name='Peptide Sequence')
+                    df = pd.concat([molecule_seq, prediction_prob, prediction_output], axis=1)
+                    df['Probability'] = df['Probability'].apply(lambda x: x[0] if isinstance(x, (list, np.ndarray)) else x)
+                    df_download = pd.concat([molecule_seq, prediction_prob, prediction_classes], axis=1)
+                    df_download['Probability'] = df_download['Probability'].apply(lambda x: x[0] if isinstance(x, (list, np.ndarray)) else x)
 
-                        st.dataframe(styler)
-                        #st.write(df)
-                        st.markdown(filedownload(prediction_output_download), unsafe_allow_html=True)
+                    table_title="<style> </style><div class='css-x9krnl ';style='display:block;'><p style='text-align:center;font-weight:bold;font-family:times;'>Cell Penetrating Peptide prediction output</p></div>"
 
+                    st.markdown(table_title, unsafe_allow_html=True)
+                    styler = Styler(df)
 
+                    styler.set_table_styles(
+                        [{'selector': 'Inhibitor', 'props': [('text-align', 'center')]}]
+                    )
+
+                    st.dataframe(styler)
+                    #st.write(df)
+                    st.markdown(filedownload(df_download), unsafe_allow_html=True)
             except ValueError as e:
                 st.error(f"Error: {e}")
 
         else:
             st.info("Please upload a FASTA file.")
-
-
-        # if uploaded_file is not None:
-
-        #     # try:
-        #     #     results = valid_fasta(uploaded_file)
-        #     #     st.write("Validation Results:")
-        #     #     st.write(results)
-        #     # except ValueError as e:
-        #     #     st.error(f"Error: {e}")
-
-
-        #     non_valid_file = False
-        #     # st.write(uploaded_file.read())
-        #     results = valid_fasta(uploaded_file.read())
-
-        #     # Print the validation results
-        #     for seq_id, is_valid in results.items():
-        #         st.write("Sequence ID"+seq_id+"Valid"+is_valid)
-        #         if is_valid == True:
-        #             non_valid_file = True
-
-        #     if non_valid_file == True:
-        #         st.warning('Invalid file content: Please provide a FASTA file with valid Peptide sequences', icon="⚠️")
-
-        #     else:
-        #         data = pd.read_csv(uploaded_file_1a2)
-                
-        #         with st.spinner('Prediction...'):
-        #             prediction_output = build_model_batch(data)
-
-        #             styler = Styler(prediction_output)
-
-        #             # Apply CSS styling to center the cells in the 'Emoji' column
-        #             styler.set_table_styles(
-        #                 [{'selector': 'Inhibitor', 'props': [('text-align', 'center')]}]
-        #             )
-
-        #             st.dataframe(styler)
-        #             #st.write(df)
-        #             st.markdown(filedownload(prediction_output), unsafe_allow_html=True)
-
-        # else:
-        #      st.write('Upload a FASTA file....')
-
-
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -532,8 +428,3 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 footer="<style> </style><div class='css-x9krnl footer';style='display:block;text-align:center;'><p style='text-align:center;'>Copyright©2024 <a href='https://sites.google.com/sunmoon.ac.kr/dslab/research?authuser=0' target='_blank'> D&S Lab, Sunmoon University</a></p></div>"
 
 st.markdown(footer, unsafe_allow_html=True)
-
-
-
-
-
