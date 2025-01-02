@@ -106,6 +106,7 @@ weel1aimg="""
        <img src='/~/+/media/693c088770063f2f92382f0d6811970885bcbf79bfa609d4d8792bea.png'>
     </div>
     """
+<img src="https://deepcpppred.streamlit.app:443/~/+/media/693c088770063f2f92382f0d6811970885bcbf79bfa609d4d8792bea.png" alt="0" style="max-width: 100%;">
 
 st.write(weel1aimg, unsafe_allow_html=True)
 weel1a2="""
