@@ -96,19 +96,9 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-weel1aimg="""
-    <style> 
-        .my_site_name{
-            text-align:center
-        }
-    </style>
-    <div class='my_site_name'>
-       <img src='https://deepcpp.streamlit.app:443/~/+/media/dac66dfcb8b2835a251b3ed21fdb583fc9ad67af00f508b9007f5a9b.png'>
-    </div>
-    """
-# st.image("site_name.png", caption="")
 
-st.write(weel1aimg, unsafe_allow_html=True)
+st.image("site_name.png", caption="")
+
 weel1a2="""
     <style> 
         .mywell{
