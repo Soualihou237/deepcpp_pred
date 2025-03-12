@@ -416,6 +416,6 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-footer="<style> </style><div class='css-x9krnl footer';style='display:block;text-align:center;'><p style='text-align:center;'>Copyright©2024 <a href='https://sites.google.com/sunmoon.ac.kr/dslab/research?authuser=0' target='_blank'> D&S Lab, Sunmoon University</a></p></div>"
+footer="<style> </style><div class='css-x9krnl footer';style='display:block;text-align:center;'><p style='text-align:center;'>Copyright©2025 <a href='https://sites.google.com/sunmoon.ac.kr/dslab/research?authuser=0' target='_blank'> D&S Lab, Sunmoon University</a></p></div>"
 
 st.markdown(footer, unsafe_allow_html=True)
